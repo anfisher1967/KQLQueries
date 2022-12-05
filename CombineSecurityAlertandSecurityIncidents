@@ -1,0 +1,7 @@
+SecurityAlert
+| join kind=inner (SecurityIncident 
+| mvexpand(AlertIds)
+| extend alertsCount_ = toint(AdditionalData.alertsCount)
+| extend AlertId = tostring(AlertIds)) on $left.SystemAlertId == $right.AlertId
+| where Severity in ("High","Medium") and alertsCount_ > 1
+| project TimeGenerated, Title, Severity, ProductName, alertsCount_
