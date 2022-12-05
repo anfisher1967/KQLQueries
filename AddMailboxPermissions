@@ -1,0 +1,6 @@
+OfficeActivity
+| where TimeGenerated > ago(7d)
+| where RecordType =="ExchangeAdmin"
+| project TimeGenerated, Operation, Parameters
+//| summarize by Operation
+| where RecordType == "ExchangeAdmin" and == "Add-MailboxPermission"
