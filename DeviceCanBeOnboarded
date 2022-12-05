@@ -1,0 +1,3 @@
+DeviceInfo
+| where OnboardingStatus contains "Can be onboarded"
+| summarize arg_min(Timestamp, DeviceName, OSDistribution, OnboardingStatus, ReportId) by DeviceId
