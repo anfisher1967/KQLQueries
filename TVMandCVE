@@ -1,0 +1,9 @@
+// Search for devices with High active alerts or Critical CVE public exploit
+DeviceTvmSoftwareVulnerabilities
+| join kind=inner(DeviceTvmSoftwareVulnerabilitiesKB) on CveId 
+| where IsExploitAvailable == 1 and CvssScore >= 7 
+| summarize NumOfVulnerabilities=dcount(CveId), DeviceName=any(DeviceName) by DeviceId
+| join kind =inner(DeviceEvents) on DeviceId 
+| summarize arg_min(ReportId,Timestamp), NumOfVulnerabilities=any(NumOfVulnerabilities), DeviceName=any(DeviceName) by DeviceId
+| project DeviceName, NumOfVulnerabilities, Timestamp, ReportId
+//| order by NumOfVulnerabilities desc
