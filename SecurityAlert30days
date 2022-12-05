@@ -1,0 +1,5 @@
+SecurityAlert
+| where TimeGenerated >= ago(30d)
+| summarize count() by AlertName
+| distinct AlertName, count_
+| sort by count_ des
