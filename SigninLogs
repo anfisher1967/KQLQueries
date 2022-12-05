@@ -1,8 +1,10 @@
 SigninLogs
 //| take 10
 //| union AADNonInteractiveUserSignInLogs
+//| where TimeGenerated >= ago (14d)
 | where Location != "US"
 //ResultType 0 means a successful logon
 | where ResultType == 0 
-| summarize count() by Location, Identity
-| render columnchart 
+//| project Identity, Location, UserPrincipaName,ClientAppUsed //or use the columns
+//| summarize count() by Location, Identity
+//| render columnchart 
