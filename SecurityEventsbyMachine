@@ -1,0 +1,3 @@
+SecurityEvent //the table
+| summarize count() by Computer //getting the count of computers
+| distinct Computer, count_ //showing the distinct computer names, combined with the count of how many times each computer has been reported with some sort of activity
