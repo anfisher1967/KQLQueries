@@ -1,0 +1,8 @@
+SigninLogs
+//| take 10
+//| union AADNonInteractiveUserSignInLogs
+| where Location != "US"
+//ResultType 0 means a successful logon
+| where ResultType == 0 
+| summarize count() by Location, Identity
+| render columnchart 
